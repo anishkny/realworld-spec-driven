@@ -1,1 +1,0 @@
-# realworld-spec-driven
