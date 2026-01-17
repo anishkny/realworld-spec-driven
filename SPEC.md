@@ -6,18 +6,18 @@ Build just the specified features exactly - no additions.
 
 Output all source code in single file: `index.js`.
 
-You may install dependencies using `npm install`.
+Install dependencies if needed using `npm install`.
 
 All tests in `api.test.js` should pass.
 
 ## Environment Variables
 
-* `PORT` - default: `3000`
-* `POSTGRES_URI` - default: `postgres://postgres:password@localhost:5432/postgres`
+- `PORT` - default: `3000`
+- `POSTGRES_URI` - default: `postgres://postgres:password@localhost:5432/postgres`
 
 ## Authentication
 
-Use JWT for authentication in header without prefix.
+Use JWT for authentication in header.
 
 Example header: `Authorization: xxxx.yyyy.zzzz`
 
@@ -39,7 +39,7 @@ Should return 200 with empty body.
 POST /api/users
 {
   "user":{
-    "username": "Jacob",
+    "username": "jacob",
     "email": "jake@jake.jake",
     "password": "jakejake"
   }
@@ -50,7 +50,21 @@ No authentication required, returns a [UserDTO](#UserDTO)
 
 Required fields: `email`, `username`, `password`
 
-Email should be valid.
+Passwords must be encrypted before storage.
+
+### Login
+
+```
+POST /api/users/login
+{
+  "user":{
+    "email": "jake@jake.jake",
+    "password": "jakejake"
+  }
+}
+```
+
+No authentication required, returns a [UserDTO](#UserDTO)
 
 ## DTOs
 
@@ -73,17 +87,19 @@ Email should be valid.
 Only one of the following response status codes are allowed:
 
 ### 200 - Success
+
 ### 401 - Unauthorized
+
 ### 404 - Not found
+
 ### 422 - Unprocessable Entity
+
 Should return errors in the following format:
+
 ```json
 {
-  "errors": [
-    {
-      "path": "",
-      "message": ""
-    }
-  ]
+  "errors": {
+    "/user": ["must have required property 'email'"]
+  }
 }
 ```
