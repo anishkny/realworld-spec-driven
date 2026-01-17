@@ -1,0 +1,11 @@
+{
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "test:only": "node --test api.test.js",
+    "test": "start-server-and-test start 3000 test:only"
+  },
+  "devDependencies": {
+    "start-server-and-test": "^2.1.3"
+  }
+}
